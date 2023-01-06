@@ -56,11 +56,11 @@ def change_status():
     s = ""
     for y in years:
         s += f"""{y} :
-\tJanvier - Mars: {screen_dict[y][0]["status"]}\t
-Avril - Juin: {screen_dict[y][1]["status"]}\t
-Juillet - Septembre: {screen_dict[y][2]["status"]}\t
-Octobre - Novembre: {screen_dict[y][3]["status"]}\t
-{screen_dict[y]["status"]}\n\r"""
+\tJanvier - Mars: {screen_dict[y][0]["status"]}
+\tAvril - Juin: {screen_dict[y][1]["status"]}
+\tJuillet - Septembre: {screen_dict[y][2]["status"]}
+\tOctobre - Novembre: {screen_dict[y][3]["status"]}
+\t{screen_dict[y]["status"]}\n\r"""
     return s
 
 
