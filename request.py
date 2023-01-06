@@ -71,12 +71,18 @@ def update_screen(year, month, status):
         screen_dict[year][month]["status"] = status
 
 
-def html_to_rows(html):
+def html_to_rows(html, header=False):
     soup = BeautifulSoup(html, 'html.parser')
     table = soup.find('table')
     rows = []
+    if header:
+        cols = table.find_all('th')
+        cols = [ele.text.strip() for ele in cols]
+        rows.append(cols)
     for row in table.find_all('tr'):
         cols = row.find_all('td')
+        if cols == []:
+            continue
         # handle empty td cells
         cols = [res if (res := ele.text.strip()) else None for ele in cols]
         rows.append(cols)
@@ -120,7 +126,7 @@ def thread_month_function(year, k, v, result, idx, pidx):
     response = requests.request("POST", url, headers=headers, data=payload, files=files)
     update_screen(year, idx, f"{bcolors.WARNING}CONVERTING{bcolors.ENDC} (size: {bytes_to_universal(len(response.text))})")
 
-    rows = html_to_rows(response.text)
+    rows = html_to_rows(response.text, header=idx==0)
     result[idx] = rows
     
     update_screen(year, idx, f"{bcolors.OKGREEN}DONE{bcolors.ENDC}")
